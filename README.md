@@ -33,3 +33,6 @@ From the root project directory, run `python3 -m alt_batch.train --dataset=[data
 | objective | "abuse" for node classification or "pretrain-link" for self-supervised pretraining followed by node classification |
 
 Available configuration options can be found in `alt_batch/config.py`.
+
+## Custom Datasets
+To train and test on custom datasets, pass `--dataset=[dataset]` as the command-line option, and place your dataset in the file `data/[dataset].csv`. See https://github.com/srijankr/jodie, as well as the example datasets, for the dataset format. Note that unlike JODIE, BiDyn is designed for transductive node classification, i.e. each node in the graph gets a single label rather than a label per time step. Hence the label field for a given node should have the same value across all its time steps.
