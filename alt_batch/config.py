@@ -1,0 +1,26 @@
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser('Alternating training')
+    parser.add_argument('--dataset', type=str, default="wikipedia")
+    parser.add_argument('--batch_size_u', type=int, default=256)
+    parser.add_argument('--batch_size_v', type=int, default=256)
+    parser.add_argument('--emb_dim', type=int, default=64)
+    parser.add_argument('--method', type=str, default="alt-batch")
+    parser.add_argument('--v_objective', type=str, default="mean")
+    parser.add_argument('--device', type=str, default="cuda")
+    parser.add_argument('--dropout', type=float, default=0.5)
+    parser.add_argument('--objective', type=str, default="abuse")
+    parser.add_argument('--use_discrete_time_batching', action="store_true")
+    parser.add_argument('--n_epochs', type=int, default=20)
+    parser.add_argument('--n_trials', type=int, default=3)
+    parser.add_argument('--train_amt', type=float, default=0.5)
+    parser.add_argument('--debug', action="store_true")
+    parser.add_argument('--node_feats', type=str, default="")
+    parser.add_argument('--out_embs_path', type=str, default="out/embs.pt")
+    parser.add_argument('--saved_embs_path', type=str, default="out/embs.pt")
+    parser.add_argument('--pretrain_variant', type=str, default="raq")
+    parser.add_argument('--agg', type=str, default="mean")
+    parser.add_argument('--analyze', action="store_true")
+    args = parser.parse_args()
+    return args
