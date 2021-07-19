@@ -5,7 +5,6 @@ def make_task_schedule(objective, n_epochs):
     elif objective == "link":
         task_schedule = [("link", "link", "link")]*n_epochs
     elif objective == "pretrain-link":
-        # TODO: tmp
         task_schedule = [("link", "link", "link")]*(19) + \
             [("abuse", "abuse", "abuse")]*(n_epochs)
     elif objective == "pretrain-time":

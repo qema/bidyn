@@ -14,8 +14,7 @@ import random
 from tqdm import tqdm
 
 def load_dataset(name, **kwargs):
-    if name in ["reddit", "wikipedia", "mooc", "lastfm"]:
-        return load_dataset_csv(name, **kwargs)
+    return load_dataset_csv(name, **kwargs)
 
 def load_dataset_csv(dataset_name, group="train", variant=None, get_edges=True,
     get_deepwalk_feats=False):
