@@ -14,16 +14,28 @@ The dynamic bipartite graph consists of user nodes and item nodes connected by d
 
 The algorithm propagates signals through the graph via alternating updates of user and item node representations, alternating application of RNN and GNN layers. See paper and website for detailed explanation of the algorithm.
 
-### Setup
+## Setup
 1. Run `pip3 install -r requirements.txt` to install required libraries
 2. Download the datasets:
+```
+wget -P data/ http://snap.stanford.edu/jodie/wikipedia.csv
+wget -P data/ http://snap.stanford.edu/jodie/reddit.csv
+wget -P data/ http://snap.stanford.edu/jodie/mooc.csv
+```
 
-    wget -P data/ http://snap.stanford.edu/jodie/wikipedia.csv
-    wget -P data/ http://snap.stanford.edu/jodie/reddit.csv
-    wget -P data/ http://snap.stanford.edu/jodie/mooc.csv
+## Usage
+From the root project directory, run `python3 -m alt_batch.train --dataset=[dataset] --agg=[agg] --objective=[objective]` to train the model under different experimental conditions.
 
-### Train the model
-From the root project directory, run `python3 -m alt_batch.train --dataset=wikipedia --agg=sum` to train the model on abuse classification on the Wikipedia dataset.
+| Option | Possible values |
+| ------------- | ------------- |
+| dataset | "wikipedia", "reddit", "mooc" |
+| agg | "mean" or "sum" graph convolution aggregation  |
+| objective | "abuse" for node classification or "pretrain-link" for self-supervised pretraining followed by node classification |
 
-### Usage
+Further configuration options can be found in `alt_batch/config.py`.
 
+### Baselines
+From the root directory, run `python3 -m baselines.tgat_transductive [args]` where the command-line arguments follow the same format as the main script. Use `alt_batch/config.py` to adjust the configuration of TGAT as well.
+
+## Custom Datasets
+To train and test on custom datasets, pass `--dataset=[dataset]` as the command-line option, and place your dataset in the file `data/[dataset].csv`. See https://github.com/srijankr/jodie, as well as the example datasets, for the dataset format. Note that unlike JODIE, BiDyn is designed for transductive node classification, i.e. each node in the graph gets a single label rather than a label per time step. Hence the label field for edges corresponding to a given node should have the same value across all its time steps. (The program will use the label of the edge at the last time step.)
